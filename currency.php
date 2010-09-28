@@ -8,7 +8,7 @@
 	compliance with the license. Any of the license terms and conditions
 	can be waived if you get permission from the copyright holder.
 
-	Copyright (c) 2009-2010 Killsaw
+	Copyright (c) 2010-2011 Killsaw
 	Steven Bredenberg <steven@killsaw.com>
 
 		@package Currency
