@@ -36,7 +36,7 @@ class Currency extends Core {
 			@param $to string Currency to convert to. e.g. EUR
 			@public
 	**/
-	public static function getConversion($amount, $from, $to) {
+	public static function convertAmount($amount, $from, $to) {
 	
 		$from = strtoupper($from);
 		$to = strtoupper($to);
@@ -46,7 +46,8 @@ class Currency extends Core {
 			return false;
 		}
 		
-		$data = f3::http("GET http://www.google.com/finance/converter?a={$amount}&from={$from}&to={$to}");
+		$data = f3::http("GET http://www.google.com/finance/converter".
+						 "?a={$amount}&from={$from}&to={$to}");
 		
 		if (preg_match('/<span class=bld>(.+) (.+)<\/span>/Ums', $data, $match)) {
 			if ($match[2] == $to) {
