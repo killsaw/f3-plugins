@@ -49,7 +49,7 @@ class Currency extends Core {
 		$data = f3::http("GET http://www.google.com/finance/converter".
 						 "?a={$amount}&from={$from}&to={$to}");
 		
-		if (preg_match('/<span class=bld>(.+) (.+)<\/span>/Ums', $data, $match)) {
+		if (preg_match('/<span class=bld>(.+) (.+)<\/span>/', $data, $match)) {
 			if ($match[2] == $to) {
 				return $match[1];
 			}
