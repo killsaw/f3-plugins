@@ -46,6 +46,11 @@ class Currency extends Core {
 			return false;
 		}
 		
+		// Workaround for empty ENV. Causes an issue in f3::http()
+		if (!isset($_ENV['OS'])) {
+			$_ENV['OS'] = 'Windows';
+		}
+		
 		$data = f3::http("GET http://www.google.com/finance/converter".
 						 "?a={$amount}&from={$from}&to={$to}");
 		
