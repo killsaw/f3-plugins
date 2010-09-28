@@ -36,7 +36,7 @@ class Currency extends Core {
 			@param $to string Currency to convert to. e.g. EUR
 			@public
 	**/
-	public static function convertAmount($amount, $from, $to) {
+	public static function convertAmount($amount, $from, $to, $quiet=false) {
 	
 		$from = strtoupper($from);
 		$to = strtoupper($to);
@@ -54,7 +54,10 @@ class Currency extends Core {
 				return (float)$match[1];
 			}
 		}
-		trigger_error(self::TEXT_NoConversion);
+		
+		if (!$quiet) {
+			trigger_error(self::TEXT_NoConversion);
+		}
 		return false;		
 	}
 }
