@@ -120,7 +120,7 @@ class SystemProfile {
 	public static function getOnlineUsers() {
 		self::checkOS();
 
-		$lines = explode("\n", `w`);
+		$lines = explode("\n", `w -h`);
 		$users = array();
 		
 		foreach($lines as $line) {
