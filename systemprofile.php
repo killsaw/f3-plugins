@@ -60,6 +60,16 @@ class SystemProfile {
 	}
 	
 	/**
+		Returns current system's hostname.
+			@return string
+			@public
+	**/	
+	public static function getHostname()
+	{
+		return php_uname('n');
+	}
+	
+	/**
 		Parse and return `uptime` info. All or some.
 			@return array|string
 			@param $all bool  Return all uptime info or just actual uptime value?
@@ -155,6 +165,3 @@ class SystemProfile {
 		}
 	}
 }
-
-print_r(SystemProfile::getOnlineUsers());
-exit;
