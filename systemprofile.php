@@ -100,6 +100,7 @@ class SystemProfile {
 			@public
 	**/
 	public static function getLoadLevels() {
+	
 		self::checkOS();
 	
 		$info = self::getUptime($all=true);
@@ -118,6 +119,7 @@ class SystemProfile {
 			@public
 	**/
 	public static function getOnlineUsers() {
+	
 		self::checkOS();
 
 		$lines = explode("\n", `w -h`);
