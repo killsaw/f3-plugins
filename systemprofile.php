@@ -122,7 +122,7 @@ class SystemProfile {
 	
 		self::checkOS();
 
-		$lines = explode("\n", `w -h`);
+		$lines = explode("\n", trim(`who`));
 		$users = array();
 		
 		foreach($lines as $line) {
@@ -155,3 +155,6 @@ class SystemProfile {
 		}
 	}
 }
+
+print_r(SystemProfile::getOnlineUsers());
+exit;
