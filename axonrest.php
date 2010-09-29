@@ -131,12 +131,12 @@ class AxonREST extends Core {
 			@param $constraints string
 			@public
 	**/	
-	static protected function hasAccess($object, $constraints=null) {
+	static protected function hasAccess($object, $action, $object_id=null) {
 		if (self::$accessDelegate === false) {
 			return true;
 		} else {
 			$return = call_user_func(self::$accessDelegate, 
-								  $object, $constraints
+								  $object, $action, $object_id
 								  );
 								  
 			if (is_bool($return)) {
@@ -194,14 +194,23 @@ class AxonREST extends Core {
 					}
 				}
 			}
+			
 			if (count($find) > 0) {
 				$where = join(' AND ', $find);
 			}
 			
-			echo json_encode(
-					$object->select($fields, $where, $group_by, 
-									$order_by, $limit, $offset)
-				 );
+			$show_rows = array();
+			$all_rows = $object->select($fields, $where, $group_by, 
+										$order_by, $limit, $offset);
+			
+			// Support row-level access filtering.
+			foreach($all_rows as $a) {
+				if (self::hasAccess($object_name, 'view', $a['id'])) {
+					$show_rows[] = $a;
+				}
+			}
+			
+			echo json_encode($show_rows);
 		}
 	}
 
