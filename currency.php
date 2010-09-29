@@ -27,7 +27,7 @@ class Currency extends Core {
 		TEXT_NoConversion='Currency could not be converted.',
 		TEXT_AmountNotNumber='Money amount is not a number.';
 	//@}
-
+	
 	/**
 		Retrieve currency conversion from Google Finance.
 			@return bool|float
@@ -51,8 +51,16 @@ class Currency extends Core {
 			$_ENV['OS'] = 'Windows';
 		}
 		
-		$data = f3::http("GET http://www.google.com/finance/converter".
-						 "?a={$amount}&from={$from}&to={$to}");
+		$data = f3::http(
+					  "GET http://www.google.com/finance/converter",
+					   http_build_query(
+					   		array(
+						 		'a'=>$amount,
+						 		'from'=>$from,
+						 		'to'=>$to
+						    )
+					   )
+				);
 		
 		if (preg_match('/<span class=bld>(.+) (.+)<\/span>/', $data, $match)) {
 			if ($match[2] == $to) {
