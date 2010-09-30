@@ -1,7 +1,8 @@
 Fat-Free Framework Plugins
 =================
 
-**AxonREST** 
+AxonREST
+---------------
 
 A plugin that handles PUT/POST/GET/DELETE operations against a named Axon model. You use it like so:
 
@@ -33,7 +34,9 @@ I must mention two things about this plugin. First, I've hardcoded the PK name t
 
 Data is all JSON encoded for output.
 
-**Currency**
+
+Currency
+---------------
 
 A simple plugin that converts a money value from one currency to another. It pulls from Google Finance, so I would not recommend pushing on it too hard.
 
@@ -41,8 +44,8 @@ A simple plugin that converts a money value from one currency to another. It pul
     // 2.0347
 
 
-**TableBuilder**
-
+TableBuilder
+---------------
 An HTML table builder with basic support for paging. Generates W3C-validating table HTML code.
 
     $rows = get_db_rows_function();
@@ -69,8 +72,8 @@ Or simply:
 
 
 
-**System Profile**
-
+System Profile
+---------------
 A plugin for grabbing system information like online users and load levels. Also supports basic interpretation of load levels, which allows for adaptive throttling.
 
     if (!SystemProfile::systemIsOkay()) {
