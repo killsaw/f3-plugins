@@ -105,11 +105,10 @@ class URL extends Core
     		@public
     **/
     public function getParam($name) {
-        if (property_exists($this, $name)) {
-            return $this->$name;
-        } else {
-        	return NULL;
+		if (array_key_exists($name, $this->query)) {
+            return $this->query[$name];
         }
+		return NULL;
     }
 
     /**
@@ -183,7 +182,7 @@ class URL extends Core
         if (empty($this->scheme)) {
             $this->scheme = 'http';
         }
-        if ($this->path[0] !== '/') {
+        if (empty($this->path) || $this->path[0] !== '/') {
             $this->path = '/'.$this->path;
         }
 
@@ -236,13 +235,12 @@ class URL extends Core
     		@public
     **/
     public function __set($name, $value) {
-        if (property_exists($this, $name)) {
-            $this->$name = $value;
-            return $value;
-        } else {
+        if (!property_exists($this, $name)) {
         	self::$global['CONTEXT'] = $name;
             trigger_error(self::TEXT_NoProperty);
         }
+		$this->$name = $value;
+		return $value;
     }
 
     /**
@@ -253,12 +251,11 @@ class URL extends Core
     		@public
     **/
     public function __get($name) {
-        if (property_exists($this, $name)) {
-            return $this->$name;
-        } else {
+        if (!property_exists($this, $name)) {
         	self::$global['CONTEXT'] = $name;
             trigger_error(self::TEXT_NoProperty);
         }
+		return $this->$name;
     }
 
     /**
@@ -276,9 +273,10 @@ class URL extends Core
                 $this->$property = $args[0];
                 return $this;
             }
+        } else {
+			self::$global['CONTEXT'] = $name;
+			trigger_error(self::TEXT_NoMethod);
         }
-        self::$global['CONTEXT'] = $name;
-        trigger_error(self::TEXT_NoMethod);
     }
 
     /**
