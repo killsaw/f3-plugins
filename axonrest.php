@@ -81,8 +81,12 @@ class AxonREST extends Core {
 		// Now load this mess.
 		$x = new AxonHelper($name);
 		if ($where !== null) {
+			list($pk) = each($x->keys);
 			if (is_numeric($where)) {
-				$where = sprintf("id=%d", $where);
+				$where = sprintf("%s=%d", $pk, intval($where));
+			} else {
+				$where = sprintf("%s='%s'", $pk, 
+							addslashes(preg_replace('/[^[:print:]]/', '', $where)));
 			}
 			$x->load($where);
 		}
@@ -163,7 +167,7 @@ class AxonREST extends Core {
 		}
 		
 		if (!empty($object_id)) {		
-			$object = self::getObject($object_name, intval($object_id));
+			$object = self::getObject($object_name, $object_id);
 			if ($object->dry()) {
 				f3::http404();
 			} else {
